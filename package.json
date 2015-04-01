@@ -1,0 +1,19 @@
+{
+  "name": "sql_comments_middleware",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danpaul/sql_comments_middleware"
+  },
+  "author": "Dan Breczinski <pt2323@gmail.com> (https://github.com/danpaul)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danpaul/sql_comments_middleware/issues"
+  },
+  "homepage": "https://github.com/danpaul/sql_comments_middleware"
+}
