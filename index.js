@@ -88,23 +88,23 @@ module.exports = function(settings){
     });
 
     // sqlComment.getFormattedComments(postId, true, function(err, comments){
-    // do not include deleted comments
+    // include deleted comments
     app.get('/comments-formatted-all/:postId', function(req, res){
         sqlComment.getFormattedComments(req.params.postId,
-                                        false,
+                                        true,
                                         function(err, comments){
 
             handleDbResponse(err, ERROR_RETRIEVING_RECORDS, res, comments);
         });
     });
 
-    // include deleted comments
+    // do not include deleted comments
     app.get('/comments-formatted/:postId', function(req, res){
         sqlComment.getFormattedComments(req.params.postId,
-                                        true,
+                                        false,
                                         function(err, comments){
 
-            handleDbResponse(err, ERROR_RETRIEVING_RECORDS, res);
+            handleDbResponse(err, ERROR_RETRIEVING_RECORDS, res, comments);
         });
     });
 
