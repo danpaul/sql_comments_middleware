@@ -21,7 +21,7 @@ var SqlComment = require('sql_comments');
 
 var getReponseObject = function(){
     return{
-        success: true,
+        status: 'success',
         errorMessage: '',
         errorCode: null,
         data: null
@@ -33,7 +33,7 @@ var handleDbResponse = function(err, errorMessage, res, data){
     var responseObject = getReponseObject();
 
     if( err ){
-        responseObject.success = false;
+        responseObject.status = 'error';
         responseObject.errorMessage = errorMessage;
         res.json(responseObject);
     } else {
