@@ -28,7 +28,7 @@ var getReponseObject = function(){
     };
 }
 
-var handleDbResponse = function(err, errorMessage, res){
+var handleDbResponse = function(err, errorMessage, res, data){
 
     var responseObject = getReponseObject();
 
@@ -37,6 +37,9 @@ var handleDbResponse = function(err, errorMessage, res){
         responseObject.errorMessage = errorMessage;
         res.json(responseObject);
     } else {
+        if(data){
+            responseObject.data = data;
+        }
         res.json(responseObject);
     }
 }
@@ -72,15 +75,15 @@ module.exports = function(settings){
 
     // passes back only non-deleted comments for post
     app.get('/comments/:postId', function(req, res){
-        sqlComment.getComments(req.params.postId, false, function(err){
-            handleDbResponse(err, ERROR_RETRIEVING_RECORDS, res);
+        sqlComment.getComments(req.params.postId, false, function(err, comments){
+            handleDbResponse(err, ERROR_RETRIEVING_RECORDS, res, comments);
         });
     });
 
     // passes back all comments for post
     app.get('/comments-all/:postId', function(req, res){
-        sqlComment.getComments(req.params.postId, true, function(err){
-            handleDbResponse(err, ERROR_RETRIEVING_RECORDS, res);
+        sqlComment.getComments(req.params.postId, true, function(err, comments){
+            handleDbResponse(err, ERROR_RETRIEVING_RECORDS, res, comments);
         });
     });
 
@@ -91,7 +94,7 @@ module.exports = function(settings){
                                         false,
                                         function(err, comments){
 
-            handleDbResponse(err, ERROR_RETRIEVING_RECORDS, res);
+            handleDbResponse(err, ERROR_RETRIEVING_RECORDS, res, comments);
         });
     });
 
