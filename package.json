@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/danpaul/sql_comments_middleware",
   "dependencies": {
+    "express": "^4.12.3",
     "sql_comments": "git://github.com/danpaul/sql_comments"
   }
 }
