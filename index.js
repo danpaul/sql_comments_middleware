@@ -110,7 +110,7 @@ module.exports = function(settings){
 
     // sqlComment.add(userId, postId, 0, 'This is a comment', callbackB)
     // parentId should be 0 if comment is top level
-    app.post('/post/:postId/:parentId', function(req, res, next){
+    app.post('/comment/:postId/:parentId', function(req, res, next){
         self.sqlComment.add(req.body.userId,
                             req.params.postId,
                             req.params.parentId,
