@@ -17,7 +17,7 @@ var ERROR_DELETEING_RECORD = 'An error occured while trying to delete your recor
 var ERROR_SAVING_RECORD = 'An error occured while trying to save your record.';
 var ERROR_RETRIEVING_RECORDS = 'An error occured while trying to get your records.';
 
-var SqlComment = require('sql_comments');
+var SqlComment = require('sql_comment');
 
 var getReponseObject = function(){
     return{
