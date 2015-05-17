@@ -170,6 +170,7 @@ module.exports = function(settings){
 
         self.getUser(req, function(err, user){
             if( err ){
+                console.log(err);
                 res.json(getGenericErrorResponse());
                 return;
             }
@@ -191,6 +192,7 @@ module.exports = function(settings){
 
         self.getUser(req, function(err, user){
             if( err ){
+                console.log(err);
                 res.json(getGenericErrorResponse());
                 return;
             }
@@ -202,6 +204,28 @@ module.exports = function(settings){
                                 function(err){
 
                 handleDbResponse(err, ERROR_SAVING_RECORD, res);
+            });
+        });
+    });
+
+    // sqlComment.add(userId, postId, 0, 'This is a comment', callbackB)
+    // parentId should be 0 if comment is top level
+    app.post('/flag/:commentId',
+             self.isAuthenticated,
+             function(req, res, next){
+
+        self.getUser(req, function(err, user){
+            if( err ){
+                console.log(err);
+                res.json(getGenericErrorResponse());
+                return;
+            }
+
+            self.sqlComment.flagUser(user.id,
+                                     req.params.commentId,
+                                     function(err){
+
+                handleDbResponse(err, ERROR_SAVING_RECORD, res);    
             });
         });
     });
