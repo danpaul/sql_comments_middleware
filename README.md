@@ -41,5 +41,29 @@ var sqlCommentsMiddleware = require('sql_comments_middleware')(options);
 app.use('/discussion', sqlCommentsMiddleware);
 ```
 
+Initialization using auth middleware and string comment ids:
+```
+/** 
+*   Commenting middleware
+*/
+var knex = require('knex')(config.commentsDB);
+var options = { 'knex': knex, useStringPostId: true };
+options.authMiddleware = function(req, res, next){
+    if( req &&
+        req.session &&
+        req.session.isLoggedIn &&
+        req.session.isLoggedIn === true ){
+
+        next();
+    } else {
+        res.json({status: 'error', errorMessage: 'You must first log in.'});
+    }
+}
+var sqlCommentsMiddleware = require('sql_comments_middleware')(options);
+app.use('/discussion', sqlCommentsMiddleware);
+```
+
+
+
 ## API/Routes
 See ./index.js

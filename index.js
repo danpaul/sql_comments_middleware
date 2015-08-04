@@ -68,6 +68,7 @@ module.exports = function(settings){
     var self = this;
     var app = require('express')();
 
+/* REMOVING
     // can be overwritten
     // should pass back (null, [true/false])
     self.checkUser = function(req, callback){
@@ -100,12 +101,16 @@ module.exports = function(settings){
     self.getUser = function(req, callback){
         callback(null, {id: req.session.userId});
     },
-
+*/
     // see sql_comment docs for settings
     self.sqlComment = new SqlComment(settings, function(err){
         if( err ){ throw(err); }
     });
 
+    // authorize for post routes
+    if( settings.authMiddleware ){
+        app.post('*', settings.authMiddleware);
+    }
 
 /*******************************************************************************
 
@@ -159,7 +164,6 @@ module.exports = function(settings){
     });
 
     app.post('/comment/vote/:direction/:commentId',
-             self.isAuthenticated,
              function(req, res){
 
         if( req.params.direction === 'up' ){
@@ -187,7 +191,6 @@ module.exports = function(settings){
     // sqlComment.add(userId, postId, 0, 'This is a comment', callbackB)
     // parentId should be 0 if comment is top level
     app.post('/comment/:postId/:parentId',
-             self.isAuthenticated,
              function(req, res, next){
 
         self.getUser(req, function(err, user){
@@ -211,7 +214,6 @@ module.exports = function(settings){
     // sqlComment.add(userId, postId, 0, 'This is a comment', callbackB)
     // parentId should be 0 if comment is top level
     app.post('/flag/:commentId',
-             self.isAuthenticated,
              function(req, res, next){
 
         self.getUser(req, function(err, user){
